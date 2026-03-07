@@ -8,4 +8,10 @@ export const TYPES = {
   INotificationService: Symbol.for("INotificationService"),
   ITaskService: Symbol.for("ITaskService"),
   IPasswordService: Symbol.for("IPasswordService"),
+  IRedisRepo: Symbol.for("IRedisRepo"),
+  IOtpService: Symbol.for("IOtpService"),
+  ITokenService: Symbol.for("ITokenService"),
+  IEmailService: Symbol.for("IEmailService"),
+  AuthController: Symbol.for("AuthController"),
+  IAuthMiddleware: Symbol.for("IAuthMiddleware"),
 };

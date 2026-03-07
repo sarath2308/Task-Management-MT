@@ -6,6 +6,8 @@ import cookieParser from "cookie-parser";
 import { urlencoded } from "express";
 import cors from "cors";
 import http from "http";
+import { errorHandler } from "./middleware/error.handler";
+import { EntryRoutes } from "./routes/entry.routes";
 
 const app = express();
 
@@ -13,10 +15,11 @@ async function startServer() {
   await loadConfigFromSSM();
   await connectDB();
   await connectRedis();
-  const server = http.createServer();
+  const server = http.createServer(app);
 
   app.use(cookieParser());
   app.use(urlencoded({ extended: true }));
+  app.use(express.json())
 
   app.use(
     cors({
@@ -25,10 +28,14 @@ async function startServer() {
     }),
   );
 
+  app.use("/api", EntryRoutes());
+
   const PORT: number = Number(process.env.PORT) || 5000;
   server.listen(PORT, () =>
     console.log(`Server running on http://localhost:${PORT}`),
   );
+
+  app.use(errorHandler)
 }
 
 startServer().catch((error) => {

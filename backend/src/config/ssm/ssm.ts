@@ -13,7 +13,7 @@ export async function loadConfigFromSSM() {
   const path = `/task-management/dev/`;
 
   let nextToken: string | undefined = undefined;
-  let allParams: Parameter[] = [];
+  const allParams: Parameter[] = [];
 
   try {
     do {

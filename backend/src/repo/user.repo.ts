@@ -10,4 +10,8 @@ export class UserRepo extends BaseRepo<IUser> implements IUserRepo {
   constructor(@inject(TYPES.IUser) private _userModel: Model<IUser>) {
     super(_userModel);
   }
+  async findByEmail(email: string): Promise<IUser | null>
+  {
+    return await this._userModel.findOne({email: email});
+  }
 }
