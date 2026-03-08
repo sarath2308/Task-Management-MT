@@ -33,7 +33,7 @@ export class RedisRepository implements IRedisRepository {
       }
     } catch (error) {
       console.error(error);
-       
+
       throw new Error("Error occurred while setting data to Redis");
     }
   }

@@ -10,35 +10,57 @@ import { UserResponseType } from "@/types/user/user.response.type";
 import { inject, injectable } from "inversify";
 
 @injectable()
-export class UserService implements IUserService 
-{
-    constructor(@inject(TYPES.IUserRepo) private _userRepo: IUserRepo){}
+export class UserService implements IUserService {
+  constructor(@inject(TYPES.IUserRepo) private _userRepo: IUserRepo) {}
 
-    async createUser(data: CreateUserType): Promise<UserResponseType>
-    {
-        const userData = await this._userRepo.create({name: data.name, email: data.email, passwordHash: data.passwordHash })
+  async createUser(data: CreateUserType): Promise<UserResponseType> {
+    const userData = await this._userRepo.create({
+      name: data.name,
+      email: data.email,
+      passwordHash: data.passwordHash,
+    });
 
-        if(!userData)
-        {
-            throw new AppError(Messages.USER_NOT_CREATED, HttpStatus.INTERNAL_SERVER_ERROR)
-        }
-        return {id: String(userData._id),name:userData.name,email: userData.email}
-
+    if (!userData) {
+      throw new AppError(
+        Messages.USER_NOT_CREATED,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
+    return {
+      id: String(userData._id),
+      name: userData.name,
+      email: userData.email,
+    };
+  }
 
-    async checkEmailExist(email: string): Promise<boolean>
-    {
-        const check = await this._userRepo.findByEmail(email);
-        if(!check) return false;
-        return true;
-    }
+  async checkEmailExist(email: string): Promise<boolean> {
+    const check = await this._userRepo.findByEmail(email);
+    if (!check) return false;
+    return true;
+  }
 
-    async findByEmail(email: string): Promise<UserFindByEmailResponse | null>
-    {
-        const userData = await this._userRepo.findByEmail(email);
+  async findByEmail(email: string): Promise<UserFindByEmailResponse | null> {
+    const userData = await this._userRepo.findByEmail(email);
 
-        if(!userData) return null;
+    if (!userData) return null;
 
-        return { id: String(userData._id), name: userData.name, email: userData.email, passwordHash: userData.passwordHash};
-    }
+    return {
+      id: String(userData._id),
+      name: userData.name,
+      email: userData.email,
+      passwordHash: userData.passwordHash,
+    };
+  }
+  async getUserById(userId: string): Promise<UserResponseType> {
+    const userData = await this._userRepo.findById(userId);
+
+    if (!userData)
+      throw new AppError(Messages.USER_NOT_FOUND, HttpStatus.NOT_FOUND);
+
+    return {
+      id: String(userData._id),
+      name: userData.name,
+      email: userData.email,
+    };
+  }
 }

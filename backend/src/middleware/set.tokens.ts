@@ -1,11 +1,15 @@
 import { Response } from "express";
 
-export const setTokens = (res: Response, accessToken: string, refreshToken?: string) => {
+export const setTokens = (
+  res: Response,
+  accessToken: string,
+  refreshToken?: string,
+) => {
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
-    maxAge: 15*60*1000
+    maxAge: 15 * 60 * 1000,
   });
 
   if (refreshToken) {
@@ -13,7 +17,7 @@ export const setTokens = (res: Response, accessToken: string, refreshToken?: str
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
-      maxAge: 60*60*1000
+      maxAge: 60 * 60 * 1000,
     });
   }
 };

@@ -26,7 +26,11 @@ export class OtpService implements IOtpService {
       .map((byte) => (byte % 10).toString())
       .join("");
   }
-  async storeOtp(key: string, data: OtpData, ttlSeconds: number): Promise<void> {
+  async storeOtp(
+    key: string,
+    data: OtpData,
+    ttlSeconds: number,
+  ): Promise<void> {
     await this._redisRepo.set<OtpData>(`${key}`, data, ttlSeconds);
   }
   async verifyOtp(key: string, otp: string): Promise<OtpData> {

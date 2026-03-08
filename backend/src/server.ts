@@ -19,7 +19,7 @@ async function startServer() {
 
   app.use(cookieParser());
   app.use(urlencoded({ extended: true }));
-  app.use(express.json())
+  app.use(express.json());
 
   app.use(
     cors({
@@ -35,7 +35,7 @@ async function startServer() {
     console.log(`Server running on http://localhost:${PORT}`),
   );
 
-  app.use(errorHandler)
+  app.use(errorHandler);
 }
 
 startServer().catch((error) => {

@@ -4,7 +4,12 @@ import { AppError } from "@/error/app.error";
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 
-export function errorHandler(err: any, req: Request, res: Response, next: NextFunction) {
+export function errorHandler(
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
   console.error(`[ERROR] ${req.method} ${req.url}`, err);
 
   if (err instanceof AppError) {

@@ -1,10 +1,11 @@
+import { TASK_STATUS } from "@/types/task/task.status.type";
 import { Schema, model, Document, Types } from "mongoose";
 
 export interface ITask extends Document {
   _id: Types.ObjectId;
   title: string;
   description: string;
-  status: "pending" | "completed";
+  status: TASK_STATUS;
   dueDate?: Date;
   user: Types.ObjectId;
   isDeleted: boolean;
@@ -24,8 +25,7 @@ const taskSchema = new Schema<ITask>(
     isDeleted: { type: Boolean, default: false },
     status: {
       type: String,
-      enum: ["pending", "completed"],
-      default: "pending",
+      default: TASK_STATUS.PENDING,
     },
     dueDate: {
       type: Date,

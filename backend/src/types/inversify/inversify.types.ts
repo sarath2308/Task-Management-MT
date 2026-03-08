@@ -14,4 +14,5 @@ export const TYPES = {
   IEmailService: Symbol.for("IEmailService"),
   AuthController: Symbol.for("AuthController"),
   IAuthMiddleware: Symbol.for("IAuthMiddleware"),
+  TaskController: Symbol.for("TaskController"),
 };

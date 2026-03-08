@@ -1,6 +1,6 @@
 export type UserFindByEmailResponse = {
-    id: string;
-    name: string;
-    email: string;
-    passwordHash: string;
-}
+  id: string;
+  name: string;
+  email: string;
+  passwordHash: string;
+};

@@ -31,4 +31,8 @@ export const Messages = {
   REFRESH_SUCCESS: "Token refreshed successfully",
   PROFILE_FETCHED: "Profile fetched Successfully",
 
+  //tasks
+  TASK_NOT_CREATED: "Task not created",
+  TASK_DUPLICATE: "Task with same title already exists",
+  TASK_NOT_FOUND: "Task not found",
 };

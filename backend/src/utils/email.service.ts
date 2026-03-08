@@ -11,7 +11,6 @@ interface EmailOptions {
   html: string;
 }
 
-
 @injectable()
 export class EmailService implements IEmailService {
   private transporter: nodemailer.Transporter;
@@ -37,7 +36,12 @@ export class EmailService implements IEmailService {
     });
   }
 
-  private buildTemplate(title: string, message: string, otp: string, note: string) {
+  private buildTemplate(
+    title: string,
+    message: string,
+    otp: string,
+    note: string,
+  ) {
     return `
       <div style="max-width:600px;margin:0 auto;padding:20px;font-family:'Segoe UI',Roboto,Arial,sans-serif;color:#111;line-height:1.6;">
         <h2 style="margin-bottom:16px;font-size:20px;font-weight:600;">${title}</h2>
@@ -61,6 +65,4 @@ export class EmailService implements IEmailService {
     );
     await this.sendMail({ to, subject: "Your LearnCircle Signup OTP", html });
   }
-
-
 }
