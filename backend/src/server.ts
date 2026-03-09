@@ -1,5 +1,4 @@
 import express from "express";
-import { loadConfigFromSSM } from "./config/ssm/ssm";
 import { connectDB } from "./config/mongodb/mongo";
 import { connectRedis } from "./config/redis/redis";
 import cookieParser from "cookie-parser";
@@ -9,11 +8,11 @@ import http from "http";
 import { errorHandler } from "./middleware/error.handler";
 import { EntryRoutes } from "./routes/entry.routes";
 import { initSocket } from "./socket";
+import "dotenv/config";
 
 const app = express();
 
 async function startServer() {
-  await loadConfigFromSSM();
   await connectDB();
   await connectRedis();
   const server = http.createServer(app);
