@@ -9,6 +9,7 @@ import { errorHandler } from "./middleware/error.handler";
 import { EntryRoutes } from "./routes/entry.routes";
 import { initSocket } from "./socket";
 import "dotenv/config";
+import "module-alias/register";
 
 const app = express();
 
