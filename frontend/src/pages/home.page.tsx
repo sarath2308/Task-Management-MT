@@ -3,15 +3,11 @@ import { CheckCircle2, Clock, BarChart3, TrendingUp } from 'lucide-react';
 import { useGetStatistics } from '../hook/tasks/task.get.statistics.hook';
 import TaskStats from '../components/task.stats.chart';
 
-interface Statistics
-{
-  total: number;
-  completed: number;
-  pending: number;
-}
 const HomePage: React.FC = () => {
-  const {data,isLoading} = useGetStatistics();
-  const {total,completed,pending}: Statistics = data;
+  const {data } = useGetStatistics();
+ const total: number = data?.total ?? 0;
+ const completed: number = data?.completed ?? 0;
+ const pending: number = data?.pending ?? 0;
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <div>

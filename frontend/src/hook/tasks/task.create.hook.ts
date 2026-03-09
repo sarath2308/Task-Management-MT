@@ -7,10 +7,6 @@ export const useCreateTask = () =>
 {
     return useMutation({
         mutationFn:TASK_API.CREATE,
-        onSuccess:()=>
-        {
-            toast.success("Task Added")
-        },
         onError:(err: unknown) =>
         {
             if(err instanceof AxiosError)

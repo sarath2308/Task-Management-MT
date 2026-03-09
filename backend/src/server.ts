@@ -8,6 +8,7 @@ import cors from "cors";
 import http from "http";
 import { errorHandler } from "./middleware/error.handler";
 import { EntryRoutes } from "./routes/entry.routes";
+import { initSocket } from "./socket";
 
 const app = express();
 
@@ -16,6 +17,7 @@ async function startServer() {
   await connectDB();
   await connectRedis();
   const server = http.createServer(app);
+  initSocket(server);
 
   app.use(cookieParser());
   app.use(urlencoded({ extended: true }));

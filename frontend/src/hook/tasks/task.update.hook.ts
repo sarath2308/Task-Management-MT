@@ -13,10 +13,6 @@ export const useUpdateTask = ()=>
     return useMutation({
      mutationFn: ({ taskId, payload }: { taskId: string; payload: UpdateTaskPayload }) =>
        TASK_API.UPDATE(taskId, payload),
-        onSuccess:()=>
-        {
-            toast.success("Task Updated")
-        },
         onError:(err: unknown)=>
         {
             if(err instanceof AxiosError)

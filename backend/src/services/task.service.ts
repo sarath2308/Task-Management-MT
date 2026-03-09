@@ -7,6 +7,7 @@ import { TaskResponseMapper } from "@/mapper/task.response.mapper";
 import { CreateTaskDataType } from "@/schema/task/task.create.schema";
 import { TaskResponseType } from "@/schema/task/task.response.schema";
 import { UpdateTaskDataType } from "@/schema/task/task.update.schema";
+import { emitToUser } from "@/socket/emit.service";
 import { TYPES } from "@/types/inversify/inversify.types";
 import { TASK_STATUS } from "@/types/task/task.status.type";
 import { inject, injectable } from "inversify";
@@ -36,6 +37,7 @@ export class TaskService implements ITaskService {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+    emitToUser(userId,"task:created",{title: "task created", message: "task added to the list"})
   }
   async updateTask(taskId: string, data: UpdateTaskDataType): Promise<void> {
     const taskData = await this._taskRepo.findById(taskId);
@@ -54,6 +56,7 @@ export class TaskService implements ITaskService {
     taskData.title = data.title ?? taskData.description;
     taskData.description = data.description ?? taskData.description;
     await taskData.save();
+      emitToUser(String(taskData.user),"task:updated",{title: "task updated", message: "task updated"})
   }
   async removeTask(taskId: string): Promise<void> {
      const taskData = await this._taskRepo.findById(taskId);
@@ -63,6 +66,8 @@ export class TaskService implements ITaskService {
     }
     taskData.isDeleted = true;
     await taskData.save();
+
+     emitToUser(String(taskData.user),"task:deleted",{title: "task removed", message: "task removed from the list"})
   }
   async getAllTaskOfUser(
     userId: string,
@@ -98,5 +103,6 @@ export class TaskService implements ITaskService {
     }
     taskData.status = taskData.status === TASK_STATUS.COMPLETED? TASK_STATUS.PENDING:TASK_STATUS.COMPLETED;
     await taskData.save();
+     emitToUser(String(taskData.user),"task:status",{title: "task status updated", message: "task status updated"})
   }
 }

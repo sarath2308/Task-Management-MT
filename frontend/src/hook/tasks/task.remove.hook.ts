@@ -7,10 +7,6 @@ export const useRemoveTask = ()=>
 {
     return useMutation({
         mutationFn: TASK_API.REMOVE,
-        onSuccess:()=>
-        {
-            toast.success("Task Removed")
-        },
         onError:(err: unknown)=>
         {
             if(err instanceof AxiosError)

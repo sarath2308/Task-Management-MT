@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   Plus, Pencil, Trash2, CheckCircle, X, 
   ListFilter, Loader2, Clock, CheckCircle2, AlertCircle 
@@ -8,6 +8,9 @@ import { useCreateTask } from '../hook/tasks/task.create.hook';
 import { useUpdateTask } from '../hook/tasks/task.update.hook';
 import { useRemoveTask } from '../hook/tasks/task.remove.hook';
 import { useToggleStatus } from '../hook/tasks/task.toggle.status.hook';
+import { getSocket } from '../socket/socket';
+import { useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 interface Task {
   id: string;
@@ -36,6 +39,43 @@ const TasksPage: React.FC = () => {
   const pendingTasks: Task[] = taskResponse?.pendingTask ?? [];
   const completedTasks: Task[] = taskResponse?.completedTask ?? [];
   const displayTasks = activeTab === 'pending' ? pendingTasks : completedTasks;
+
+   const queryClient = useQueryClient();
+
+
+
+useEffect(() => {
+      const socket = getSocket();
+    socket.on("task:created", () => {
+      toast.success("task created");
+      queryClient.invalidateQueries({ queryKey: ["get-tasks"] });
+    });
+
+    socket.on("task:updated", () => {
+         toast.success("task updated");
+      console.log("Task updated");
+      queryClient.invalidateQueries({ queryKey: ["get-tasks"] });
+    });
+
+    socket.on("task:deleted", () => {
+        toast.success("task deleted");
+      queryClient.invalidateQueries({ queryKey: ["get-tasks"] });
+    });
+
+    socket.on("task:status", () => {
+        toast.success("task status changed");
+      queryClient.invalidateQueries({ queryKey: ["get-tasks"] });
+    });
+
+    return () => {
+      socket.off("task:created");
+      socket.off("task:updated");
+      socket.off("task:deleted");
+         socket.off("task:status");
+    };
+
+  }, [queryClient]);
+
 
   // --- Action Handlers ---
   const handleOpenModal = (task?: Task) => {
