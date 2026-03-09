@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/socket.io/:path*",
+      "destination": "https://task-management-6e5d.onrender.com/socket.io/:path*"
+    },
+    {
       "source": "/api/:path*",
       "destination": "https://task-management-6e5d.onrender.com/api/:path*"
     },
