@@ -1,14 +1,14 @@
 import express from "express";
 import "module-alias/register";
-import { connectDB } from "./config/mongodb/mongo";
-import { connectRedis } from "./config/redis/redis";
+import { connectDB } from "@/config/mongodb/mongo";
+import { connectRedis } from "@/config/redis/redis";
 import cookieParser from "cookie-parser";
 import { urlencoded } from "express";
 import cors from "cors";
 import http from "http";
-import { errorHandler } from "./middleware/error.handler";
-import { EntryRoutes } from "./routes/entry.routes";
-import { initSocket } from "./socket";
+import { errorHandler } from "@/middleware/error.handler";
+import { EntryRoutes } from "@/routes/entry.routes";
+import { initSocket } from "@/socket";
 import "dotenv/config";
 
 

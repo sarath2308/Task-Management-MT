@@ -1,4 +1,3 @@
-import { getRedisClient } from "@/config/redis/redis";
 import { AuthController } from "@/controller/auth.controller";
 import { TaskController } from "@/controller/task.controller";
 import { IAuthService } from "@/interface/auth.service.interface";
@@ -36,7 +35,7 @@ container.bind<Model<ITask>>(TYPES.ITask).toConstantValue(taskModel);
 //repo
 container
   .bind(TYPES.IRedisRepo)
-  .toConstantValue(new RedisRepository(getRedisClient));
+  .to(RedisRepository).inSingletonScope();
 container.bind<IUserRepo>(TYPES.IUserRepo).to(UserRepo).inSingletonScope();
 container.bind<ITaskRepo>(TYPES.ITaskRepo).to(TaskRepo).inSingletonScope();
 

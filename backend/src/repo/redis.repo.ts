@@ -1,5 +1,5 @@
 /* eslint-disable preserve-caught-error */
-import { RedisClientType } from "redis";
+import { getRedisClient } from "@/config/redis/redis";
 
 export interface IRedisRepository {
   get<T>(key: string): Promise<T | null>;
@@ -9,10 +9,10 @@ export interface IRedisRepository {
 }
 
 export class RedisRepository implements IRedisRepository {
-  constructor(private readonly getClient: () => RedisClientType) {}
+  constructor() {}
 
   async get<T>(key: string): Promise<T | null> {
-    const client = this.getClient();
+    const client = getRedisClient();
     try {
       const data = await client.get(key);
       return data ? JSON.parse(data) : null;
@@ -23,7 +23,7 @@ export class RedisRepository implements IRedisRepository {
   }
 
   async set<T>(key: string, value: T, ttl?: number): Promise<void> {
-    const client = this.getClient();
+    const client = getRedisClient();
     try {
       const stringValue = JSON.stringify(value);
       if (ttl) {
@@ -39,7 +39,7 @@ export class RedisRepository implements IRedisRepository {
   }
 
   async delete(key: string): Promise<void> {
-    const client = this.getClient();
+    const client = getRedisClient();
     try {
       await client.del(key);
     } catch (error) {
@@ -49,7 +49,7 @@ export class RedisRepository implements IRedisRepository {
   }
 
   async exists(key: string): Promise<boolean> {
-    const client = this.getClient();
+    const client = getRedisClient();
     try {
       const exists = await client.exists(key);
       return exists === 1;

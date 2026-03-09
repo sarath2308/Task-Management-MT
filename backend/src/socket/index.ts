@@ -5,7 +5,7 @@ import container from "@/di/di.container";
 import { socketAuthMiddleware } from "@/middleware/socket.auth.middleware";
 import { ITokenService } from "@/utils/token.service";
 import { TYPES } from "@/types/inversify/inversify.types";
-import { registerSocket } from "./socket.handler";
+import { registerSocket } from "@/socket/socket.handler";
 
 let io: Server | null = null;
 
