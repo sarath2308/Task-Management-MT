@@ -4,7 +4,7 @@ let socket: Socket | null = null;
 
 export const getSocket = () => {
   if (!socket) {
-    socket = io("/", {
+    socket = io(import.meta.env.VITE_SOCKET_URL!, {
       withCredentials: true,
       autoConnect: false,
       transports:["websocket"]
