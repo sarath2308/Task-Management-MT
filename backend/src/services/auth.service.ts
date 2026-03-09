@@ -111,6 +111,8 @@ export class AuthService implements IAuthService {
       userId: userData.id,
     });
 
+    console.log("tokens :"+tokens.accessToken)
+
     return {
       accessToken: tokens.accessToken,
       refreshToken: tokens.refreshToken,
