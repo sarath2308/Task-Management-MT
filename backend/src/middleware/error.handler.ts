@@ -1,6 +1,6 @@
-import { HttpStatus } from "@/constant/http.status";
-import { Messages } from "@/constant/message.constant";
-import { AppError } from "@/error/app.error";
+import { HttpStatus } from "../constant/http.status";
+import { Messages } from "../constant/message.constant";
+import { AppError } from "../error/app.error";
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
 
