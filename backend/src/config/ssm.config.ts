@@ -8,7 +8,7 @@ import {
 const client = new SSMClient({ region: process.env.AWS_REGION || "ap-south-1" });
 
 export async function loadConfigFromSSM() {
-  const path = `/task-management/prod/`;
+  const path = `/task-management/dev/`;
 
   let nextToken: string | undefined = undefined;
   const allParams: Parameter[] = [];
