@@ -35,5 +35,4 @@ tmp/
 temp/
 
 # lock files (optional)
-package-lock.json
 yarn.lock
