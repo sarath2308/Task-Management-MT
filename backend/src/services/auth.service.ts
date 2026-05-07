@@ -106,7 +106,6 @@ export class AuthService implements IAuthService {
     if (!check) {
       throw new AppError(Messages.INVALID_CREDENTIALS, HttpStatus.UNAUTHORIZED);
     }
-
     const tokens = await this._tokenService.generateTokens({
       userId: userData.id,
     });
