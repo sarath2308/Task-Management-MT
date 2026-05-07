@@ -20,6 +20,7 @@ export function EntryRoutes() {
 
   router.use("/auth", AuthRoutes(authController));
   router.use("/task", authorize.handle.bind(authorize),TaskRoutes(taskController));
+  router.use("/example",)
 
   return router;
 }
